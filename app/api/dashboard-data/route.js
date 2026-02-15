@@ -1,4 +1,8 @@
-// Dashboard数据API - 返回所有运营数据
+// INPUT: Supabase数据库 (analyses表), 环境变量 (SUPABASE_SERVICE_ROLE_KEY)
+// OUTPUT: GET /api/dashboard-data - 返回所有运营指标和用户列表
+// POS: 核心数据API，为Dashboard主页面提供所有数据
+// 一旦我被更新，务必更新我的开头注释，以及所属文件夹的README.md
+
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://xtwqwkpspphedyktjzoz.supabase.co';

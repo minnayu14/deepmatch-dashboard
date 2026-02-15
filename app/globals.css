@@ -1,3 +1,9 @@
+/* INPUT: Tailwind CSS框架 (base/components/utilities)
+ * OUTPUT: 全局样式、Tailwind配置、CSS重置
+ * POS: 应用唯一全局样式表，由layout.js导入
+ * 一旦我被更新，务必更新我的开头注释，以及所属文件夹的README.md
+ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

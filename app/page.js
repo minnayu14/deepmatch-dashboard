@@ -1,3 +1,8 @@
+// INPUT: /api/dashboard-data, /api/daily-insight (数据API)
+// OUTPUT: Dashboard主页面UI，展示运营数据和AI洞察
+// POS: 应用唯一页面组件，用户访问的主界面
+// 一旦我被更新，务必更新我的开头注释，以及所属文件夹的README.md
+
 'use client';
 
 import { useState, useEffect, useRef } from 'react';

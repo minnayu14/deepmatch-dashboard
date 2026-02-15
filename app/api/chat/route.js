@@ -1,4 +1,8 @@
-// AI对话API - 使用TTAPI调用Claude进行智能对话
+// INPUT: POST请求 (messages), Dashboard数据, OpenRouter API, 环境变量
+// OUTPUT: POST /api/chat - 返回AI对话回复
+// POS: AI对话功能实现，当前在前端已隐藏但API保留
+// 一旦我被更新，务必更新我的开头注释，以及所属文件夹的README.md
+
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://xtwqwkpspphedyktjzoz.supabase.co';

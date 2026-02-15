@@ -2,174 +2,131 @@
 
 > 独立的运营数据监控后台，集成AI智能分析功能
 
-## 🚀 快速启动
+## ⚠️ 重要：文档更新规范
 
-```bash
-cd /Users/yuzhi/Desktop/deepmatch_jp/dashboard
-npm install
-npm run dev
-```
+**任何功能、架构、写法更新后，必须同步更新以下内容：**
 
-访问: **http://localhost:3001**
+1. ✅ **更新文件开头的三行注释**（Input/Output/Pos）
+2. ✅ **更新所在文件夹的README.md**
+3. ✅ **更新本README.md中的相关章节**
+
+**这不是建议，是强制要求。** 保持文档同步是代码质量的一部分。
 
 ## 📁 项目结构
 
 ```
 dashboard/
-├── app/
-│   ├── page.js                    # Dashboard主页面
-│   ├── layout.js                  # 全局布局
-│   ├── globals.css                # 全局样式
-│   └── api/
-│       ├── dashboard-data/        # 数据API
-│       │   └── route.js
-│       ├── chat/                  # AI对话API
-│       │   └── route.js
-│       └── daily-insight/         # 每日洞察API
-│           └── route.js
-├── package.json
-├── next.config.js
-├── tailwind.config.js
-├── .env.local                     # 环境变量（已配置）
-└── check-schema.js                # 数据库探查工具
+├── app/                        # Next.js App Router应用目录
+│   ├── api/                    # API路由目录
+│   │   ├── chat/              # AI对话API
+│   │   ├── daily-insight/     # AI每日洞察API
+│   │   └── dashboard-data/    # Dashboard数据API
+│   ├── page.js                # 主页面组件
+│   ├── layout.js              # 根布局组件
+│   └── globals.css            # 全局样式
+├── package.json               # 项目依赖配置
+├── postcss.config.js          # PostCSS配置
+├── tailwind.config.js         # Tailwind CSS配置
+└── README.md                  # 本文档
 ```
 
-## ✨ 功能特性
+详细结构说明请查看各子目录的README.md文件。
+
+## 🚀 快速启动
+
+```bash
+# 1. 安装依赖
+npm install
+
+# 2. 配置环境变量（如未配置）
+# 编辑 .env.local 文件，添加必要的API密钥
+
+# 3. 启动开发服务器
+npm run dev
+
+# 4. 访问Dashboard
+# http://localhost:3001
+```
+
+## 🔧 环境变量
+
+需要在 `.env.local` 中配置以下变量：
+
+```bash
+# Supabase配置
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+# OpenRouter配置（AI功能）
+OPENROUTER_API_KEY=your_openrouter_key
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+```
+
+## ✨ 核心功能
 
 ### 1. 实时数据展示
-- ✅ 总用户数
-- ✅ 总分析次数
-- ✅ 用户回访率
-- ✅ 最近10位用户列表
-- ✅ 今日数据统计（过去24小时）
+- 总用户数、总分析次数、用户回访率
+- 最近用户列表（前10位）
+- 今日数据统计（过去24小时）
 
-### 2. AI每日洞察 ✨
-- 🤖 AI自动生成运营洞察报告
-- 📊 数据亮点分析
-- 👥 用户行为洞察
-- ⚠️ 潜在问题识别
-- 💡 运营改进建议
+### 2. AI每日洞察
+- 基于过去24小时数据生成洞察报告
+- 使用OpenRouter API调用GPT-4 Turbo
+- 分析用户行为、发现趋势、提供建议
 
-### 3. AI对话助手 ✨
-- 💬 多轮对话能力
-- 📈 基于实时Supabase数据回答问题
-- 🎯 提供运营建议和数据洞察
-- 🔄 保持上下文
-
-## 🔧 环境配置
-
-已在 `.env.local` 配置：
-
-```bash
-# Supabase
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...
-
-# TTAPI (Claude API代理)
-TTAPI_API_KEY=d7f10316-2c64-e114-f51e-6e9e9f75feb1
-TTAPI_BASE_URL=https://api.ttapi.io/v1
-```
-
-## 📡 API端点
-
-### 1. 获取Dashboard数据
-```bash
-GET /api/dashboard-data
-```
-
-返回所有运营指标、用户列表、趋势数据等。
-
-### 2. AI对话
-```bash
-POST /api/chat
-Content-Type: application/json
-
-{
-  "messages": [
-    { "role": "user", "content": "今天的数据表现如何？" }
-  ]
-}
-```
-
-返回AI回复和上下文保持。
-
-### 3. 每日洞察
-```bash
-GET /api/daily-insight
-```
-
-自动生成AI分析报告。
+### 3. AI对话助手（已隐藏）
+- 多轮对话能力
+- 基于实时数据回答问题
 
 ## 🎨 技术栈
 
 - **框架**: Next.js 16.0.10 (App Router)
-- **React**: 19.2.0
-- **样式**: Tailwind CSS 4
+- **UI**: React 19.2.0
+- **样式**: Tailwind CSS 3.4.0
 - **数据库**: Supabase PostgreSQL
-- **AI**: Claude via TTAPI
+- **AI**: OpenRouter (GPT-4 Turbo)
+- **HTTP**: Axios 1.13.5
+- **部署**: Vercel
+
+## 📡 API端点
+
+| 端点 | 方法 | 说明 |
+|------|------|------|
+| `/api/dashboard-data` | GET | 获取Dashboard所有数据 |
+| `/api/daily-insight` | GET | 生成AI每日洞察报告 |
+| `/api/chat` | POST | AI对话接口（已隐藏） |
+
+详细API文档请查看 `app/api/README.md`
 
 ## 💻 开发命令
 
 ```bash
-# 安装依赖
-npm install
-
-# 启动开发服务器（端口3001）
-npm run dev
-
-# 构建生产版本
-npm build
-
-# 启动生产服务器
-npm start
-
-# 检查数据库Schema
-npm run check-schema
+npm run dev      # 启动开发服务器（端口3001）
+npm run build    # 构建生产版本
+npm run start    # 启动生产服务器
+npm run lint     # 代码检查
 ```
 
-## 📊 数据说明
+## 🚢 部署
 
-### 当前数据（2026-02-15）
-- 总用户: 64人
-- 总分析: 290次
-- 回访率: 45%
-- 今日新增: 8人
+本项目已部署到Vercel：
+- **生产环境**: https://deepmatch-dashboard.vercel.app/
+- **GitHub仓库**: https://github.com/minnayu14/deepmatch-dashboard.git
 
-### 数据来源
-所有数据来自Supabase数据库：
-- `analyses` 表 - 分析记录
-- `user_events` 表 - 用户事件
-
-## 🔐 权限说明
-
-Dashboard使用 `SUPABASE_SERVICE_ROLE_KEY` 访问数据库，绕过RLS规则，确保完整数据访问。
+部署时需在Vercel中配置环境变量。
 
 ## 🎯 与主项目隔离
 
-**重要**: Dashboard是完全独立的项目，与 `/web` 主网站分离：
+Dashboard是完全独立的项目：
+- 独立端口：**3001**（主网站3000）
+- 独立依赖管理
+- 独立Git仓库
+- 不影响主项目代码
 
-- Dashboard端口: **3001**
-- 主网站端口: **3000**
-- 代码完全隔离，不影响主项目
-- 独立的依赖管理
-- 独立的Git管理（可选）
+## 📝 开发指南
 
-## 📝 使用示例
-
-### AI对话示例问题
-
-1. "今天的数据表现如何？"
-2. "用户回访率为什么这么低？"
-3. "如何提升用户活跃度？"
-4. "最近的用户行为有什么趋势？"
-5. "给我一些运营建议"
-
-### 每日洞察
-
-点击"重新生成"按钮，AI会基于最新数据生成：
-- 数据亮点（2-3条）
-- 用户行为洞察（3-4条）
-- 潜在问题（2-3条）
-- 运营建议（3-5条）
+1. **添加新功能前**：阅读相关目录的README.md了解架构
+2. **开发过程中**：遵循现有代码风格和文件结构
+3. **完成开发后**：更新所有相关文档（见顶部规范）
 
 ## 🐛 常见问题
 
@@ -179,30 +136,23 @@ lsof -i :3001
 kill -9 <PID>
 ```
 
-**Q: AI回复失败？**
-- 检查TTAPI_API_KEY是否正确
-- 检查网络连接
-- 查看浏览器Console错误
+**Q: AI功能失败？**
+- 检查OpenRouter API Key是否正确配置
+- 检查网络连接（Vercel部署可绕过中国地区限制）
 
-**Q: 数据不更新？**
-- 点击"刷新数据"按钮
-- 检查Supabase连接
+**Q: 样式显示异常？**
+- 确保使用Tailwind CSS 3.4.0（不是4.x）
+- 清除构建缓存：`rm -rf .next && npm run dev`
 
-## 📮 下一步计划
+## 📮 后续计划
 
-- [ ] 邮件报告系统（Resend + Vercel Cron）
-- [ ] 图表可视化（7天趋势）
-- [ ] 详情弹窗（点击指标查看详情）
-- [ ] 密码保护
-- [ ] 移动端适配
-
-## 📞 联系方式
-
-**项目路径**: `/Users/yuzhi/Desktop/deepmatch_jp/dashboard/`
-**访问地址**: http://localhost:3001
-**文档**: 见 `DASHBOARD-PROJECT.md`
+- [ ] 优化数据展示逻辑
+- [ ] 调整样式细节
+- [ ] 添加更多运营指标
+- [ ] 图表可视化
+- [ ] 移动端优化
 
 ---
 
-最后更新: 2026-02-15
-版本: v2.0 (AI集成完成)
+**最后更新**: 2026-02-15
+**版本**: v3.0 (Vercel部署完成，文档规范化)

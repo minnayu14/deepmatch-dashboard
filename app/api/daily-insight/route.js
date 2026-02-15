@@ -1,4 +1,8 @@
-// 每日洞察API - AI自动生成运营洞察报告
+// INPUT: Supabase (24h数据), OpenRouter API (GPT-4), 环境变量
+// OUTPUT: GET /api/daily-insight - 返回AI生成的运营洞察报告
+// POS: AI功能核心，分析数据并生成简洁洞察文本
+// 一旦我被更新，务必更新我的开头注释，以及所属文件夹的README.md
+
 import { createClient } from '@supabase/supabase-js';
 import axios from 'axios';
 
