@@ -1,0 +1,23 @@
+{
+  "name": "deepmatch-dashboard",
+  "version": "1.0.0",
+  "description": "DeepMatch运营看板 - 独立运营后台",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "lint": "next lint",
+    "check-schema": "node check-schema.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.86.0",
+    "axios": "^1.13.5",
+    "next": "^16.0.10",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.0.0"
+  }
+}
